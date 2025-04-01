@@ -41,6 +41,13 @@ app.get(
 app.get('**', (req, res, next) => {
   const { protocol, originalUrl, baseUrl, headers } = req;
 
+  console.log('Hola Mundo desde server.ts');
+  const cookies = headers.cookie ?? ''; // lang=it;another=cookie
+  const langCookie =
+    cookies.split(';').find((cookie) => cookie.includes('lang')) ?? 'lang=en'; // lang=it
+
+  const [, lang] = langCookie.split('=');
+
   commonEngine
     .render({
       bootstrap,
